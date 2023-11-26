@@ -15,7 +15,7 @@ export default {
 
         'LIMEGREEN05': '#AA9B87',
         'LIMEGREEN04': '#D4C2A8',
-        'LIMEGREEN03': '#FFE9CA',
+         'LIMEGREEN03': '#FFE9CA',
         'LIMEGREEN02': '#FFF0DC',
         'LIMEGREEN01': '#FFF8ED',
 
@@ -23,10 +23,18 @@ export default {
         'ATTENTION': '#F9CC00',
         'SUCCESS': '#73CA5C'
       },
+      width:{
+      'THREESEVEN':'380px',
+      },
+      margin:{
+       'TOP':'8px',
+       'RIGHT':'332px',
+        'LEFT': '100px',
+      },
       fontFamily: {
         "poppins": ['Poppins', 'sans-serif'],
       },
     },
   },
   plugins: [],
-}
+        }
