@@ -34,12 +34,12 @@ const hid = ()=>{
 }
 
 const butt = ()=>{
- if(inputShowHide.current.value.length <= 8 &&inputShowHideO.current.value.length <=8) {
+ if(inputShowHide.current.value.length <= 7 &&inputShowHideO.current.value.length <=7 || inputShowHide.current.value.length != inputShowHideO.current.value.length) {
   inputShowHide.current.style.border = "2.5px solid #FF0000"; 
   inputShowHideO.current.style.border = "2.5px solid #FF0000"; 
   setWarningRed("block") 
   setSuccessGreen("hidden")
- }else if(inputShowHide.current.value.length >= 8 &&inputShowHideO.current.value.length >= 8) {
+ }else if(inputShowHide.current.value.length >= 7 &&inputShowHideO.current.value.length >= 7 || inputShowHide.current.value.length ===inputShowHideO.current.value.length) {
  inputShowHide.current.style.border = "2px solid black"
  inputShowHideO.current.style.border = "2px solid black"
  setSuccessGreen("block")
