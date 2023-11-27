@@ -30,6 +30,9 @@ export default {
        'TOP':'8px',
        'RIGHT':'332px',
         'LEFT': '100px',
+        'LEFTWR': '113px',
+        'LEFTWG': '60px',
+        'MiNLEFT': '-500px',
       },
       fontFamily: {
         "poppins": ['Poppins', 'sans-serif'],
