@@ -83,15 +83,15 @@ return(
    <div className="mt-8">
   <Button title={"Simpan"} onClick={butt}></Button>
  </div>
- <div className={`${warningRed} ml-LEFT mt-40 `}>
+ <div className={`${warningRed} ml-LEFT mt-30 `}>
  <Allert type="warning" message={"Password minimal 8 karakter"}/>
  </div>
  
- <div className={`${warningRedTwo} ml-8 mt-40 `}>
+ <div className={`${warningRedTwo} ml-8 mt-30 `}>
  <Allert type="warning" message={"Password dan konfirmasi password harus sama"}/>
  </div>
  
- <div className={`${successGreen} ml-LEFT mt-40 `}>
+ <div className={`${successGreen} ml-LEFT mt-30 `}>
  <Allert type="success" message={"Reset password berhasil"}/>
  </div>
 </div>
