@@ -8,7 +8,7 @@ const Allert = ({ message, type }) => {
  bgColor = "bg-SUCCESS"
 }
  return (
-<div className={`${bgColor} text-white max-w-fit px-4 py-2 rounded-lg text-xs ml-LEFT mt-40 `}>{message}</div>
+<div className={`${bgColor} text-white max-w-fit px-4 py-2 rounded-lg text-xs`}>{message}</div>
   )
 }
 export default Allert
