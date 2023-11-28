@@ -77,14 +77,14 @@ const InputTwo = () => {
           <img
             src={Eye}
             alt="hide"
-            className={`w-6 absolute mt-TOP ml-RIGHT cursor-pointer ${eyeHdOne}`}
+            className={`w-6 absolute mt-TOP ml-right cursor-pointer ${eyeHdOne}`}
             onClick={hid}
             ref={eyeO}
           />
           <img
             src={EyeSlash}
             alt="hide"
-            className={`w-6 absolute mt-TOP ml-RIGHT cursor-pointer ${eyeShOne}`}
+            className={`w-6 absolute mt-TOP ml-right cursor-pointer ${eyeShOne}`}
             onClick={sho}
             ref={eyeOs}
           />
@@ -104,14 +104,14 @@ const InputTwo = () => {
           <img
             src={Eye}
             alt="hide"
-            className={`w-6 absolute mt-TOP ml-RIGHT cursor-pointer ${eyeHdTwo}`}
+            className={`w-6 absolute mt-TOP ml-right cursor-pointer ${eyeHdTwo}`}
             onClick={show}
             ref={eye}
           />
           <img
             src={EyeSlash}
             alt="hide"
-            className={`w-6 absolute mt-TOP ml-RIGHT cursor-pointer ${eyeShTwo}`}
+            className={`w-6 absolute mt-TOP ml-right cursor-pointer ${eyeShTwo}`}
             onClick={hide}
             ref={eyeS}
           />
@@ -125,18 +125,18 @@ const InputTwo = () => {
         <div className="mt-8">
           <Button title={"Simpan"} onClick={butt}></Button>
         </div>
-        <div className={`${warningRed} ml-LEFT mt-30 `}>
+        <div className={`${warningRed} ml-LEFT mt-8 `}>
           <Allert type="warning" message={"Password minimal 8 karakter"} />
         </div>
 
-        <div className={`${warningRedTwo} ml-8 mt-30 `}>
+        <div className={`${warningRedTwo} ml-LEFT mt-8 `}>
           <Allert
             type="warning"
             message={"Password dan konfirmasi password harus sama"}
           />
         </div>
 
-        <div className={`${successGreen} ml-LEFT mt-30 `}>
+        <div className={`${successGreen} ml-LEFT mt-8 `}>
           <Allert type="success" message={"Reset password berhasil"} />
         </div>
       </div>
