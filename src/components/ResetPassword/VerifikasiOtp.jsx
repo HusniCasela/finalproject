@@ -1,6 +1,6 @@
 import Button from "../Button/Button";
 import { useNavigate } from "react-router-dom";
-import React, { useRef, useState } from "react";
+import React, { useRef, useEffect,useState} from "react";
 import TitleReset from "../InputPassword/TitleReset";
 import Allert from "../Allert/Allert";
 
@@ -17,12 +17,12 @@ const VerifikasiOtp = () => {
   const [warningRed, setWarningRed] = useState("hidden");
   const [successGreen, setSuccessGreen] = useState("hidden");
 
+useEffect(() => {
   const handleInput = (ref, nextRef) => {
     if (ref.current.value.length >= 1) {
       nextRef.current.focus();
     }
   };
-
   const removeValue = (ref, prevRef) => {
     if (ref.current.value.length === 0) {
       prevRef.current.focus();
@@ -54,6 +54,20 @@ const VerifikasiOtp = () => {
     removeValue(otpThree, otpTwo)
   );
   otpTwo.current?.addEventListener("input", () => removeValue(otpTwo, otpOne));
+})
+
+function limit(limValue){
+ if(limValue.current.value.length >1) {
+limValue.current.value = limValue.current.value.slice(0,1)
+}
+return limValue
+}
+  otpOne.current?.addEventListener("input", () => limit(otpOne));
+  otpTwo.current?.addEventListener("input", () => limit(otpTwo));
+  otpThree.current?.addEventListener("input", () => limit(otpThree));
+otpFor.current?.addEventListener("input", () => limit(otpFor));
+  otpFive.current?.addEventListener("input", () => limit(otpFive));
+  otpNine.current?.addEventListener("input", () => limit(otpNine));
 
   const send = () => {
     const downCo = (coun) => {
@@ -71,8 +85,7 @@ const VerifikasiOtp = () => {
     setSendRepeat("hidden");
     setSendSeconds("block");
   };
-
-  const butt = () => {
+  const cl = () => {
     if (
       otpOne.current.value.length != 0 &&
       otpTwo.current.value.length != 0 &&
@@ -82,6 +95,7 @@ const VerifikasiOtp = () => {
       otpNine.current.value.length != 0
     ) {
       setSuccessGreen("block");
+      setWarningRed("hidden");
     } else {
       setWarningRed("block");
     }
@@ -142,7 +156,7 @@ const VerifikasiOtp = () => {
         </p>
       </div>
       <div className="mt-7">
-        <Button title={"Simpan"} onClick={butt}></Button>
+        <Button title={"Simpan"} onClick={cl}></Button>
       </div>
       <div className={`${warningRed} ml-12 mt-20 `}>
         <Allert type="warning" message={"maaf kode OTP salah"} />
