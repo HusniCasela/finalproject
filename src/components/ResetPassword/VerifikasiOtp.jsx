@@ -104,6 +104,7 @@ const VerifikasiOtp = () => {
       setWarningRed("hidden");
     } else {
       setWarningRed("block");
+      setSuccessGreen("hidden");
     }
   };
 
