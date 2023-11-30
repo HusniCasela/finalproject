@@ -4,6 +4,7 @@ import Login from "../src/pages/Login";
 import Register from "../src/pages/Register";
 import Reset from "../src/pages/Reset";
 import ResetTautan from "./pages/ResetTautan";
+import Verifikasi from '../src/pages/Verifikasi'
 function App() {
   return (
     <>
@@ -13,6 +14,7 @@ function App() {
           <Route path="/Register" element={<Register />}></Route>
           <Route path="/Reset" element={<Reset />}></Route>
           <Route path="/ResetTautan" element={<ResetTautan />}></Route>
+           <Route path='Verifikasi' element={<Verifikasi/>}></Route>
         </Routes>
       </BrowserRouter>
     </>
