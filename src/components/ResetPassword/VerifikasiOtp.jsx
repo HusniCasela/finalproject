@@ -1,8 +1,10 @@
 import Button from "../Button/Button";
-import { useNavigate,useLocation} from "react-router-dom";
-import React, { useRef, useEffect,useState} from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import React, { useRef, useEffect, useState } from "react";
 import TitleReset from "../InputPassword/TitleReset";
 import Allert from "../Allert/Allert";
+import axios from "axios";
+import { SERVER_URL } from "../../lib/constants.js";
 
 const VerifikasiOtp = () => {
   const otpOne = useRef(null);
@@ -11,63 +13,69 @@ const VerifikasiOtp = () => {
   const otpFor = useRef(null);
   const otpFive = useRef(null);
   const otpNine = useRef(null);
-  const secon = useRef(null); 
+  const secon = useRef(null);
   const [sendRepeat, setSendRepeat] = useState("block");
   const [sendSeconds, setSendSeconds] = useState("hidden");
   const [warningRed, setWarningRed] = useState("hidden");
   const [successGreen, setSuccessGreen] = useState("hidden");
   const navigate = useNavigate();
-   const location = useLocation()
-   
-useEffect(() => {
-  const handleInput = (ref, nextRef) => {
-    if (ref.current.value.length >= 1) {
-      nextRef.current.focus();
+  const location = useLocation();
+
+  useEffect(() => {
+    const handleInput = (ref, nextRef) => {
+      if (ref.current.value.length >= 1) {
+        nextRef.current.focus();
+      }
+    };
+    const removeValue = (ref, prevRef) => {
+      if (ref.current.value.length === 0) {
+        prevRef.current.focus();
+      }
+    };
+
+    otpOne.current?.addEventListener("input", () =>
+      handleInput(otpOne, otpTwo)
+    );
+    otpTwo.current?.addEventListener("input", () =>
+      handleInput(otpTwo, otpThree)
+    );
+    otpThree.current?.addEventListener("input", () =>
+      handleInput(otpThree, otpFor)
+    );
+    otpFor.current?.addEventListener("input", () =>
+      handleInput(otpFor, otpFive)
+    );
+    otpFive.current?.addEventListener("input", () =>
+      handleInput(otpFive, otpNine)
+    );
+
+    otpNine.current?.addEventListener("input", () =>
+      removeValue(otpNine, otpFive)
+    );
+    otpFive.current?.addEventListener("input", () =>
+      removeValue(otpFive, otpFor)
+    );
+    otpFor.current?.addEventListener("input", () =>
+      removeValue(otpFor, otpThree)
+    );
+    otpThree.current?.addEventListener("input", () =>
+      removeValue(otpThree, otpTwo)
+    );
+    otpTwo.current?.addEventListener("input", () =>
+      removeValue(otpTwo, otpOne)
+    );
+  });
+
+  function limit(limValue) {
+    if (limValue.current.value.length > 1) {
+      limValue.current.value = limValue.current.value.slice(0, 1);
     }
-  };
-  const removeValue = (ref, prevRef) => {
-    if (ref.current.value.length === 0) {
-      prevRef.current.focus();
-    }
-  };
-
-  otpOne.current?.addEventListener("input", () => handleInput(otpOne, otpTwo));
-  otpTwo.current?.addEventListener("input", () =>
-    handleInput(otpTwo, otpThree)
-  );
-  otpThree.current?.addEventListener("input", () =>
-    handleInput(otpThree, otpFor)
-  );
-  otpFor.current?.addEventListener("input", () => handleInput(otpFor, otpFive));
-  otpFive.current?.addEventListener("input", () =>
-    handleInput(otpFive, otpNine)
-  );
-
-  otpNine.current?.addEventListener("input", () =>
-    removeValue(otpNine, otpFive)
-  );
-  otpFive.current?.addEventListener("input", () =>
-    removeValue(otpFive, otpFor)
-  );
-  otpFor.current?.addEventListener("input", () =>
-    removeValue(otpFor, otpThree)
-  );
-  otpThree.current?.addEventListener("input", () =>
-    removeValue(otpThree, otpTwo)
-  );
-  otpTwo.current?.addEventListener("input", () => removeValue(otpTwo, otpOne));
-})
-
-function limit(limValue){
- if(limValue.current.value.length >1) {
-limValue.current.value = limValue.current.value.slice(0,1)
-}
-return limValue
-}
+    return limValue;
+  }
   otpOne.current?.addEventListener("input", () => limit(otpOne));
   otpTwo.current?.addEventListener("input", () => limit(otpTwo));
   otpThree.current?.addEventListener("input", () => limit(otpThree));
-otpFor.current?.addEventListener("input", () => limit(otpFor));
+  otpFor.current?.addEventListener("input", () => limit(otpFor));
   otpFive.current?.addEventListener("input", () => limit(otpFive));
   otpNine.current?.addEventListener("input", () => limit(otpNine));
 
@@ -87,33 +95,52 @@ otpFor.current?.addEventListener("input", () => limit(otpFor));
     setSendRepeat("hidden");
     setSendSeconds("block");
   };
-  
-  
- const { name, email, phone, password } = location.state || {};
-     
-      if (name && email && phone && password) {
-        const user = { name, email, phone, password, verified: true };
-      }
-   
-      
-  const cl = () => { 
 
+  const { name, email, phone, password } = location.state || {};
+
+  if (name && email && phone && password) {
+    const user = { name, email, phone, password, verified: true };
+  }
+
+  const cl = async () => {
     if (
       otpOne.current.value.length != 0 &&
       otpTwo.current.value.length != 0 &&
       otpThree.current.value.length != 0 &&
       otpFor.current.value.length != 0 &&
       otpFive.current.value.length != 0 &&
-      otpNine.current.value.length != 0) { 
-        setSuccessGreen("block");
-        setWarningRed("hidden");
-    }else {
-     navigate("/Register");
+      otpNine.current.value.length != 0
+    ) {
+      //kode yang diupdate
+      const otp =
+        otpOne.current?.value +
+        otpTwo.current?.value +
+        otpThree.current?.value +
+        otpFor.current?.value +
+        otpFive.current?.value +
+        otpNine.current?.value;
+
+      await axios.post(
+        `${SERVER_URL}/auth/register/otp`,
+        JSON.stringify({
+          ...location.state.formData,
+          otp,
+        }),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      //update selesai sampai sini
+      setSuccessGreen("block");
+      setWarningRed("hidden");
+    } else {
+      navigate("/Register");
       setWarningRed("block");
-    setSuccessGreen("hidden");
+      setSuccessGreen("hidden");
     }
- 
-    }
+  };
   return (
     <section className="">
       <TitleReset titleMessage={"Masukan OTP"} />
@@ -179,5 +206,5 @@ otpFor.current?.addEventListener("input", () => limit(otpFor));
       </div>
     </section>
   );
-}
+};
 export default VerifikasiOtp;

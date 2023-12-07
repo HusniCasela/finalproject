@@ -11,7 +11,7 @@ const Button = ({ title, onClick }) => {
 
     // pake button temenku
     <div
-      className="py-3 px-6 bg-DARKBLUE05 text-white text-center rounded-2xl mt-2 text-sm"
+      className="py-3 px-6 bg-DARKBLUE05 text-white text-center rounded-2xl mt-2 text-sm cursor-pointer"
       onClick={onClick}
     >
       {title}
