@@ -4,7 +4,8 @@ import React, { useRef, useEffect, useState } from "react";
 import TitleReset from "../InputPassword/TitleReset";
 import Allert from "../Allert/Allert";
 import axios from "axios";
-import { SERVER_URL } from "../../lib/constants.js";
+// import { SERVER_URL } from "../../lib/constants.js";
+import { SERVER_URL } from "../../lib/constant";
 
 const VerifikasiOtp = () => {
   const otpOne = useRef(null);

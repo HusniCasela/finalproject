@@ -2,7 +2,7 @@ import Button from "../Button/Button";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { SERVER_URL } from "../../lib/constants.js";
+import { SERVER_URL } from "../../lib/constant";
 
 //const RegisterForm = async () => {
 //  const [name,setName ] = useState("")
