@@ -36,48 +36,48 @@ const RegisterForm = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+
+  // console.log({ name, email, phone, password });
+
+  // await axios.post(
+  //   `${SERVER_URL}/auth/register`,
+  //   JSON.stringify({ name, email, phone, password }),
+  //   {
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   }
+  // );
+
+  // navigate("/Verifikasi", {
+  //   state: { formData: { name, email, phone, password } },
+  // });
+
   const register = async () => {
-    console.log({ name, email, phone, password });
+    try {
+      console.log({ name, email, phone, password });
+      const response = await axios.post(
+        `${SERVER_URL}/auth/register`,
+        JSON.stringify({ name, email, phone, password }),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    await axios.post(
-      `${SERVER_URL}/auth/register`,
-      JSON.stringify({ name, email, phone, password }),
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
+      if (response.status === 200) {
+        console.log("Registrasi sukses!");
+        navigate("/Verifikasi", {
+          state: { formData: { name, email, phone, password } },
+        });
+      } else {
+        console.log("Registrasi gagal. Kode status:", response.status);
       }
-    );
-
-    navigate("/Verifikasi", {
-      state: { formData: { name, email, phone, password } },
-    });
-  };
-
-  try {
-    console.log({ name, email, phone, password });
-    const response = axios.post(
-      `${SERVER_URL}/auth/register`,
-      JSON.stringify({ name, email, phone, password }),
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    if (response.status === 200) {
-      console.log("Registrasi sukses!");
-      navigate("/Verifikasi", {
-        state: { formData: { name, email, phone, password } },
-      });
-    } else {
-      console.log("Registrasi gagal. Kode status:", response.status);
+    } catch (error) {
+      console.error("Error:", error.message);
     }
-  } catch (error) {
-    console.error("Error:", error.message);
-  }
-
+  };
   //sampai sini updatenya
 
   const navigate = useNavigate();
