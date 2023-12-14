@@ -19,7 +19,8 @@ const LoginForm = () => {
         <div className="pb-4">
           <div>
             <label className="float-left pb-2 text-xs">Password</label>
-            <label className="float-right text-xs font-medium text-DARKBLUE05">
+            <label className="float-right text-xs font-medium text-DARKBLUE05 cursor-pointer" 
+            onClick={()=>navigate("/Reset")}>
               Lupa Kata Sandi
             </label>
           </div>
