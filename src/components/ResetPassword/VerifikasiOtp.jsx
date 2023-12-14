@@ -136,6 +136,7 @@ const VerifikasiOtp = () => {
       //update selesai sampai sini
       setSuccessGreen("block");
       setWarningRed("hidden");
+      navigate("/Login");
     } else {
       navigate("/Register");
       setWarningRed("block");
