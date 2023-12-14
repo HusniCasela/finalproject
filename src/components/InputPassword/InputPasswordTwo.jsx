@@ -13,7 +13,6 @@ const InputTwo = () => {
   const eyeO = useRef(null);
   const eyeOs = useRef(null);
   const [warningRed, setWarningRed] = useState("hidden");
-  const [warningRedTwo, setWarningRedTwo] = useState("hidden");
   const [successGreen, setSuccessGreen] = useState("hidden");
   const [inputOne, setInputOne] = useState("border-2");
   const [inputTwo, setInputTwo] = useState("border-2");
@@ -47,6 +46,7 @@ const InputTwo = () => {
   };
   
   const butt = async () => {
+   if(inputShowHide.current.value.length >= 8){
     try {
       console.log({ email, password });
       const response = await axios.put(
@@ -58,41 +58,36 @@ const InputTwo = () => {
           },
         }
       );
-
-      if (response.status === 200 &&      inputShowHide.current.value.length >= 8 &&
-      inputShowHideO.current.value.length >= 8 &&
-      inputShowHide.current.value === inputShowHideO.current.value) {
+         if (response.status === 200) {
         console.log("reset password sukses!");
-      setInputOne("border-2");
-      setInputTwo("border-2");
-      setSuccessGreen("block");
-      setWarningRed("hidden");
-      setWarningRedTwo("hidden");
-      } else if(inputShowHide.current.value !== inputShowHideO.current.value){
+      } else{
         console.log("Reset password gagal. Kode status:", response.status);
-         setInputOne("border-WARNING");
-      setInputTwo("border-WARNING");
-      setWarningRedTwo("block");
-      setSuccessGreen("hidden");
-      setWarningRed("hidden");
-      }else{
-       setInputOne("border-WARNING");
-      setInputTwo("border-WARNING");
-      setWarningRed("block");
-      setSuccessGreen("hidden");
-      setWarningRedTwo("hidden");
       }
+      
     } catch (error) {
       console.error("Error:", error.message);
     }
     
-    
+     setInputOne("border-2");
+      setInputTwo("border-2");
+      setSuccessGreen("block");
+      setWarningRed("hidden");
+      
+
+}else if(inputShowHide.current.value <= 8){
+      setInputOne("border-WARNING");
+      setInputTwo("border-WARNING");
+      setSuccessGreen("hidden");
+      setWarningRed("hidden");
+}else {
+      setInputOne("border-WARNING");
+      setInputTwo("border-WARNING");
+      setWarningRed("block");
+      setSuccessGreen("hidden");
+}
+  
   };
-  /*
-  const butt = () => {
-    
-  };
-*/
+ 
   return (
     <div>
       <div className="mt-8">
@@ -115,7 +110,7 @@ const InputTwo = () => {
             ref={eyeOs}
           />
           <input
-            type="email"
+            type="password"
             ref={inputShowHideO}
             className={` border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full ${inputOne}`}
            value={email}
@@ -157,14 +152,6 @@ const InputTwo = () => {
         <div className={`${warningRed} ml-LEFT mt-8 `}>
           <Allert type="warning" message={"Password minimal 8 karakter"} />
         </div>
-
-        <div className={`${warningRedTwo} ml-LEFT mt-8 `}>
-          <Allert
-            type="warning"
-            message={"Password dan konfirmasi password harus sama"}
-          />
-        </div>
-
         <div className={`${successGreen} ml-LEFT mt-8 `}>
           <Allert type="success" message={"Reset tautan terkirim"} />
         </div>
